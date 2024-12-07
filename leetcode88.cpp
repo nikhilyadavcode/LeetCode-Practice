@@ -1,58 +1,65 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void merge(vector<int>&nums1,int m,int n,vector<int>&nums2){
-    int i=m-1;
-    int j=n-1;
+vector<int> merge(vector<int>&nums1,vector<int>&nums2){
+    int n=nums1.size();
+    int m=nums2.size();
+    int i=n-1;
+    int j=m-1;
     int k=m+n-1;
+    vector<int>res(m+n);
     while(i>=0 && j>=0){
-        if(nums1[i]>nums2[j]){
-            nums1[k]=nums1[i];
+        if(nums1[i]>=nums2[j]){
+            res[k]=nums1[i];
             i--;
+            k--;
         }
         else{
-            nums1[k]=nums2[j];
+            res[k]=nums2[j];
             j--;
+            k--;
         }
-        k--;
     }
-    while(i>=0){
-        nums1[k]=nums1[i];
-        i--;
-        k--;
-    }
-    while(j>=0){
-        nums1[k]=nums2[j];
-        j--;
-        k--;
-    }
+        
+            while(j>=0){
+                res[k]=nums2[j];
+                j--;
+                k--;
+            }
+        
+            
+                while(i>=0){
+                    res[k]=nums1[i];
+                    i--;
+                    k--;
+                }
+            
+        return res;
+
 }
 int main(){
-    int m=3;
-    int n=3;
     vector<int>nums1;
     nums1.push_back(1);
-    nums1.push_back(2);
-    nums1.push_back(3);
-    nums1.push_back(0);
-    nums1.push_back(0);
-    nums1.push_back(0);
+    nums1.push_back(4);
+    nums1.push_back(5);
+    nums1.push_back(8);
     for(int i=0;i<nums1.size();i++){
         cout<<nums1[i]<<" ";
     }
     cout<<endl;
-     vector<int>nums2;
-     nums2.push_back(2);
-     nums2.push_back(5);
-     nums2.push_back(6);
-     for(int i=0;i<nums2.size();i++){
+    vector<int>nums2;
+    nums2.push_back(2);
+    nums2.push_back(3);
+    nums2.push_back(6);
+    nums2.push_back(7);
+    nums2.push_back(10);
+    nums2.push_back(12);
+    for(int i=0;i<nums2.size();i++){
         cout<<nums2[i]<<" ";
-     }
-     cout<<endl;
-      merge(nums1,m,n,nums2);
-      for(int i=0;i<(m+n);i++){
-        cout<<nums1[i]<<" ";
-      }
-   
-
+    }
+    cout<<endl;
+    vector<int>v=merge(nums1,nums2);
+    for(int i=0;i<v.size();i++){
+        cout<<v[i]<<" ";
+    }
 }

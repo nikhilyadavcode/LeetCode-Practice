@@ -1,22 +1,26 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void SortColor(vector<int>&nums){
-    int n=nums.size();
-    int noO=0;
-    int noZ=0;
-    int noT=0;
-    for(int i=0;i<n;i++){
-        if(nums[i]==0) noZ++;
-        if(nums[i]==1) noO++;
-        if(nums[i]==2) noT++;
+void sortColors(vector<int>&nums){
+    int low=0;
+    int mid=0;
+    int high=nums.size()-1;
+    while(mid<=high){
+        if(nums[mid]==2){
+            int temp=nums[mid];
+            nums[mid]=nums[high];
+            nums[high]=temp;
+            high--;
+     }
+     else if(nums[mid]==0){
+        int temp=nums[mid];
+        nums[mid]=nums[low];
+        nums[low]=temp;
+        low++;
+        mid++;
+     }
+     else mid++;
     }
-    for(int i=0;i<n;i++){
-        if(i<noZ) nums[i]=0;
-        else if(i<(noZ+noO)) nums[i]=1;
-        else nums[i]=2;
-    }
-    return;
 }
 int main(){
     vector<int>nums;
@@ -30,7 +34,7 @@ int main(){
         cout<<nums[i]<<" ";
     }
     cout<<endl;
-    SortColor(nums);
+    sortColors(nums);
     for(int i=0;i<nums.size();i++){
         cout<<nums[i]<<" ";
     }
